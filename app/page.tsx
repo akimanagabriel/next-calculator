@@ -1,7 +1,6 @@
 "use client";
 
-import { HtmlContext } from "next/dist/server/future/route-modules/app-page/vendored/contexts/entrypoints";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
 function page() {
   const buttons = [
@@ -20,7 +19,12 @@ function page() {
       return setResultField("")
     }
 
-    setResultField(prev => `${prev}${value}`)
+    if (value === "." && resultField.includes(".")) {
+      return setResultField(prev => `${prev}`)
+    } else {
+      setResultField(prev => `${prev}${value}`)
+    }
+
   }
 
   function computeResult() {
@@ -54,7 +58,7 @@ function page() {
               ))}
             </div>
             <div>
-              <button onClick={computeResult} className="border h-12 w-12 bg-slate-50 h-full bg-orange-500 text-white">
+              <button onClick={computeResult} className="border h-12 w-12 h-full bg-orange-500 text-white">
                 =
               </button>
             </div>
